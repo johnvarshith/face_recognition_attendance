@@ -24,19 +24,18 @@ face_recognition_attendance/
 ├── create_database.py      # Script to initialize the database
 ├── encode_face.py          # Generate and save face encodings
 ├── encodings.pkl           # File containing face encodings
-├── faces/                  # Directory containing folders of images for each person
+├── faces/
+│   └── john/                 
 │   ├── messi/
 │   │   ├── messi1.jpg
 │   │   └── messi2.jpg
-│   └── john/
-│     
 ├── recognition.py          # Main script for real-time face recognition
 ├── requirements.txt        # Python dependencies
 ├── static/                 # Static files for the Flask app
 ├── templates/              # HTML templates for the Flask app
 ├── test_database.py        # Script to test database functionality
 ├── update_encoding.py      # Update existing face encodings
-└── attendance.db           # SQLite database file
+├── attendance.db           # SQLite database file
 ```
 
 ---
@@ -48,6 +47,7 @@ face_recognition_attendance/
 - 🖼️ face_recognition
 - 📹 OpenCV
 - 🗄️ SQLite
+- 🐍 Conda Environment
 
 Install the required dependencies using:
 
@@ -66,7 +66,21 @@ pip install -r requirements.txt
    cd face_recognition_attendance
    ```
 
-2. **Set Up the Database**
+2. **Set Up the Conda Environment**
+   Create and activate a Conda environment:
+
+   ```bash
+   conda create -n face_recognition python=3.8 -y
+   conda activate face_recognition
+   ```
+
+   Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Set Up the Database**
    Run the script to create the SQLite database and attendance table:
 
    ```bash
@@ -74,17 +88,17 @@ pip install -r requirements.txt
    python create_attendance_table.py
    ```
 
-3. **Add Faces**
+4. **Add Faces**
    Place images of the individuals you want to recognize in the `faces/` directory, organized by folder names (e.g., `messi`, `john`).
 
-4. **Generate Face Encodings**
+5. **Generate Face Encodings**
    Run the following to generate encodings for the faces:
 
    ```bash
    python encode_face.py
    ```
 
-5. **Run the Flask Application**
+6. **Run the Flask Application**
    Start the Flask app:
 
    ```bash
@@ -93,7 +107,7 @@ pip install -r requirements.txt
 
    Access the application at `http://127.0.0.1:5000` in your browser.
 
-6. **Run Real-Time Recognition**
+7. **Run Real-Time Recognition**
    Start the face recognition process:
 
    ```bash
@@ -150,4 +164,18 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 **Janjarapu Varshithkar**  
 [LinkedIn Profile](https://www.linkedin.com/in/janjarapu-varshithkar-927020271)
+
+---
+
+## requirements.txt
+
+```
+Flask==2.3.2
+face_recognition==1.3.0
+opencv-python==4.8.0.76
+opencv-contrib-python==4.8.0.76
+numpy==1.24.3
+pandas==2.0.2
+SQLAlchemy==2.0.17
+```
 
