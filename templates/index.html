@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition Attendance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        #video {
+            border: 2px solid black;
+            margin-top: 20px;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 70%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #d9d9d9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Face Recognition Attendance System</h1>
+    <div>
+        <h3>Live Video Feed</h3>
+        <img id="video" src="{{ url_for('video_feed') }}" width="640" height="480">
+    </div>
+    <div>
+        <h3>Attendance Records</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-table"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function fetchAttendanceData() {
+            fetch('/attendance_data')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('attendance-table');
+                    tableBody.innerHTML = '';
+                    data.forEach(record => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${record.id}</td>
+                            <td>${record.name}</td>
+                            <td>${record.timestamp}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                });
+        }
+
+        setInterval(fetchAttendanceData, 5000); // Refresh attendance table every 5 seconds
+    </script>
+</body>
+</html>
